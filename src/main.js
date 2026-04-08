@@ -121,15 +121,15 @@ function popupContent(name, lat, lng) {
 // ---- Fetch data ----
 async function loadGardens() {
   try {
-    const pollRes = await fetch('https://api-open.data.gov.sg/v1/public/api/datasets/d_f91a8b057cfb2bebf2e531ad8061e1c1/poll-download');
-    const pollData = await pollRes.json();
-    const rawUrl = pollData.data.url;
-    const downloadUrl = import.meta.env.DEV
-      ? rawUrl.replace('https://s3.ap-southeast-1.amazonaws.com', '/s3-proxy')
-      : rawUrl;
-
-    const dataRes = await fetch(downloadUrl);
-    const geojson = await dataRes.json();
+    let geojson;
+    if (import.meta.env.DEV) {
+      const pollRes = await fetch('https://api-open.data.gov.sg/v1/public/api/datasets/d_f91a8b057cfb2bebf2e531ad8061e1c1/poll-download');
+      const pollData = await pollRes.json();
+      const downloadUrl = pollData.data.url.replace('https://s3.ap-southeast-1.amazonaws.com', '/s3-proxy');
+      geojson = await (await fetch(downloadUrl)).json();
+    } else {
+      geojson = await (await fetch('/geojson')).json();
+    }
 
     geojson.features.forEach(feature => {
       const props = feature.properties;

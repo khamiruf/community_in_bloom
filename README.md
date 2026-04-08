@@ -30,7 +30,7 @@ bun run build   # outputs to dist/
 
 Deploy the `dist/` folder to any static host. Recommended: **Cloudflare Pages** (connect your GitHub repo, set build command to `bun run build`, output directory to `dist`).
 
-> **Note:** The dev server proxies the garden data download through Vite to work around a CORS restriction. In production the request is made directly — this works fine on deployed domains.
+> **Note:** In dev, garden data is fetched via a Vite proxy to work around a CORS restriction on the S3 download URL. In production, a Cloudflare Pages Function (`functions/geojson.js`) proxies both the poll and S3 fetch server-side, so no CORS issue.
 
 ## Data
 
