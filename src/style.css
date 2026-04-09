@@ -1,4 +1,10 @@
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 :root {
   --forest: #1a3a2a;
@@ -12,10 +18,18 @@
   --sidebar-width: 380px;
 }
 
-html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text); }
+html,
+body {
+  height: 100%;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+}
 
 /* ---- Layout ---- */
-.app { display: flex; height: 100vh; }
+.app {
+  display: flex;
+  height: 100vh;
+}
 
 .sidebar {
   width: var(--sidebar-width);
@@ -23,7 +37,7 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--cream-dark);
-  z-index: 1000;
+  z-index: 1100;
   flex-shrink: 0;
 }
 
@@ -46,7 +60,14 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
   opacity: 0.75;
 }
 
-.search-area { padding: 12px 16px; border-bottom: 1px solid var(--cream-dark); }
+.sidebar-close {
+  display: none;
+}
+
+.search-area {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--cream-dark);
+}
 
 .search-input {
   width: 100%;
@@ -60,7 +81,9 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
   transition: border-color 0.2s;
 }
 
-.search-input:focus { border-color: var(--gold); }
+.search-input:focus {
+  border-color: var(--gold);
+}
 
 .counter {
   padding: 8px 16px;
@@ -85,8 +108,13 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
   gap: 10px;
 }
 
-.garden-item:hover { background: var(--cream-dark); }
-.garden-item:active { transform: scale(0.99); }
+.garden-item:hover {
+  background: var(--cream-dark);
+}
+
+.garden-item:active {
+  transform: scale(0.99);
+}
 
 .garden-item .dot {
   width: 8px;
@@ -111,7 +139,10 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
 }
 
 /* ---- Map ---- */
-#map { flex: 1; min-width: 0; }
+#map {
+  flex: 1;
+  min-width: 0;
+}
 
 /* ---- Loading overlay ---- */
 .loading-overlay {
@@ -126,7 +157,10 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
   transition: opacity 0.4s;
 }
 
-.loading-overlay.hidden { opacity: 0; pointer-events: none; }
+.loading-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
 
 .spinner {
   width: 40px;
@@ -144,7 +178,28 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
   font-size: 1.1rem;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- Cluster markers ---- */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+  background-color: rgba(42, 90, 58, 0.25);
+}
+
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+  background-color: rgba(42, 90, 58, 0.85);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
 
 /* ---- User location marker ---- */
 .user-location-dot {
@@ -153,7 +208,7 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
   background: #2979ff;
   border: 2px solid #fff;
   border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(41,121,255,0.35);
+  box-shadow: 0 0 0 2px rgba(41, 121, 255, 0.35);
   position: relative;
 }
 
@@ -161,23 +216,33 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  background: rgba(41,121,255,0.2);
+  background: rgba(41, 121, 255, 0.2);
   animation: location-pulse 2s ease-out infinite;
 }
 
 @keyframes location-pulse {
-  0%   { transform: scale(0.5); opacity: 1; }
-  100% { transform: scale(2.2); opacity: 0; }
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
 }
 
 /* ---- Leaflet popup override ---- */
 .leaflet-popup-content-wrapper {
   border-radius: 10px;
   font-family: 'DM Sans', sans-serif;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-.leaflet-popup-content { margin: 14px 16px; line-height: 1.4; }
+.leaflet-popup-content {
+  margin: 14px 16px;
+  line-height: 1.4;
+}
 
 .popup-name {
   font-family: 'Playfair Display', serif;
@@ -187,7 +252,7 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
   color: var(--forest);
 }
 
-.popup-directions {
+.leaflet-popup-content .popup-directions {
   display: inline-block;
   padding: 6px 14px;
   background: var(--forest);
@@ -199,7 +264,10 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
   transition: background 0.2s;
 }
 
-.popup-directions:hover { background: var(--forest-light); }
+.leaflet-popup-content .popup-directions:hover {
+  background: var(--forest-light);
+  color: #fff;
+}
 
 /* ---- Mobile ---- */
 .mobile-toggle {
@@ -216,7 +284,7 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
   height: 42px;
   font-size: 1.3rem;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 768px) {
@@ -227,19 +295,49 @@ html, body { height: 100%; font-family: 'DM Sans', sans-serif; color: var(--text
     height: 100%;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
-    box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
   }
 
-  .sidebar.open { transform: translateX(0); }
-  .mobile-toggle { display: block; }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+
+  .sidebar-close {
+    display: block;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: var(--cream);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.7;
+    padding: 4px 8px;
+  }
+
+  .sidebar-close:hover {
+    opacity: 1;
+  }
+
+  .sidebar-header {
+    position: relative;
+  }
 
   .mobile-backdrop {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.3);
-    z-index: 999;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1050;
   }
 
-  .mobile-backdrop.visible { display: block; }
+  .mobile-backdrop.visible {
+    display: block;
+  }
 }

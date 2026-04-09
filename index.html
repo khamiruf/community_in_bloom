@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Community in Bloom — Singapore Garden Map</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <script type="module" src="/src/main.js"></script>
 </head>
@@ -23,6 +25,7 @@
     <div class="sidebar-header">
       <h1>Community in Bloom</h1>
       <p>Singapore's community gardens</p>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">&times;</button>
     </div>
     <div class="search-area">
       <input type="text" class="search-input" id="searchInput" placeholder="Search gardens&hellip;" />
@@ -34,5 +37,6 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
 </body>
 </html>

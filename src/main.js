@@ -36,6 +36,10 @@ const sidebar      = document.getElementById('sidebar');
 const mobileToggle = document.getElementById('mobileToggle');
 const backdrop     = document.getElementById('backdrop');
 
+// ---- Cluster group ----
+const clusterGroup = L.markerClusterGroup();
+map.addLayer(clusterGroup);
+
 // ---- State ----
 let gardens = [];   // { name, lat, lng, marker, feature }
 let filtered = [];
@@ -43,11 +47,14 @@ let userLocation = null;  // { lat, lng } when geolocation is granted
 
 // ---- Mobile sidebar toggle ----
 function toggleSidebar() {
+  const opening = !sidebar.classList.contains('open');
   sidebar.classList.toggle('open');
   backdrop.classList.toggle('visible');
+  mobileToggle.style.display = opening ? 'none' : '';
 }
 mobileToggle.addEventListener('click', toggleSidebar);
 backdrop.addEventListener('click', toggleSidebar);
+document.getElementById('sidebarClose').addEventListener('click', toggleSidebar);
 
 // ---- Render list & counter ----
 function render() {
@@ -63,14 +70,9 @@ function render() {
     counterEl.textContent = `${filtered.length} of ${gardens.length} gardens shown`;
   }
 
-  // Show / hide markers
-  gardens.forEach(g => {
-    if (filtered.includes(g)) {
-      if (!map.hasLayer(g.marker)) g.marker.addTo(map);
-    } else {
-      map.removeLayer(g.marker);
-    }
-  });
+  // Sync cluster group with filtered set
+  clusterGroup.clearLayers();
+  clusterGroup.addLayers(filtered.map(g => g.marker));
 
   // Rebuild list
   gardenListEl.innerHTML = '';
@@ -142,19 +144,17 @@ async function loadGardens() {
       const marker = L.marker([lat, lng], { icon: createIcon() })
         .bindPopup(popupContent(name, lat, lng));
 
-      marker.addTo(map);
       gardens.push({ name, lat, lng, marker, feature });
     });
 
     gardens.sort((a, b) => a.name.localeCompare(b.name));
 
-    // Fit bounds
-    if (gardens.length) {
-      const group = L.featureGroup(gardens.map(g => g.marker));
-      map.fitBounds(group.getBounds().pad(0.05));
-    }
-
     render();
+
+    if (gardens.length) {
+      const bounds = L.latLngBounds(gardens.map(g => [g.lat, g.lng]));
+      map.fitBounds(bounds.pad(0.05));
+    }
   } catch (err) {
     console.error('Failed to load garden data:', err);
     counterEl.textContent = 'Failed to load data. Please refresh.';
